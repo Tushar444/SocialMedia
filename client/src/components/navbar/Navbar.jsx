@@ -12,9 +12,11 @@ import { useContext, useEffect, useState } from "react";
 import { DarkModeContext } from "../../context/DarkModeContext";
 import { makeRequest } from "../../axios";
 import { useQuery } from "@tanstack/react-query";
+import { AuthContext } from "../../context/AuthContext";
 
 const Navbar = () => {
   const { darkMode, changeTheme } = useContext(DarkModeContext);
+  const { logout } = useContext(AuthContext);
 
   const [searchString, setSearchString] = useState("");
   const [search, setSearch] = useState("");
@@ -55,8 +57,7 @@ const Navbar = () => {
   };
 
   const handleLogout = async () => {
-    await makeRequest.post("/auth/logout");
-    navigate("/login");
+    logout();
   };
 
   return (

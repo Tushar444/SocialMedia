@@ -1,5 +1,6 @@
-import axios from "axios";
 import { createContext, useEffect, useState } from "react";
+import { makeRequest } from "../axios";
+import { useNavigate } from "react-router-dom";
 
 export const AuthContext = createContext(false);
 
@@ -13,8 +14,7 @@ export const AuthContextProvider = ({ children }) => {
   }, [currentUser]);
 
   const login = async (inputs) => {
-    const backendURL = import.meta.env.VITE_BACKEND_URL;
-    const res = await axios.post(`${backendURL}/api/auth/login`, inputs, {
+    const res = await makeRequest.post("/auth/login", inputs, {
       withCredentials: true,
     });
 
@@ -22,8 +22,16 @@ export const AuthContextProvider = ({ children }) => {
     setCurrentUser(res.data);
   };
 
+  const navigate = useNavigate();
+
+  const logout = async () => {
+    await makeRequest.post("/auth/logout");
+    localStorage.clear();
+    navigate("/login");
+  };
+
   return (
-    <AuthContext.Provider value={{ currentUser, login }}>
+    <AuthContext.Provider value={{ currentUser, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
