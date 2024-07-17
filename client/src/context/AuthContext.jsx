@@ -18,6 +18,7 @@ export const AuthContextProvider = ({ children }) => {
       withCredentials: true,
     });
 
+    console.log(res.data);
     setCurrentUser(res.data);
   };
 
