@@ -58,6 +58,7 @@ const Navbar = () => {
 
   const handleLogout = async () => {
     logout();
+    navigate("/login");
   };
 
   return (

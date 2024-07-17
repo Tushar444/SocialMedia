@@ -1,6 +1,5 @@
 import { createContext, useEffect, useState } from "react";
 import { makeRequest } from "../axios";
-import { useNavigate } from "react-router-dom";
 
 export const AuthContext = createContext(false);
 
@@ -22,12 +21,9 @@ export const AuthContextProvider = ({ children }) => {
     setCurrentUser(res.data);
   };
 
-  const navigate = useNavigate();
-
   const logout = async () => {
     await makeRequest.post("/auth/logout");
     localStorage.clear();
-    navigate("/login");
   };
 
   return (
