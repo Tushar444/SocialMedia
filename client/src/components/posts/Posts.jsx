@@ -14,8 +14,6 @@ const Posts = () => {
         const response = await makeRequest.get("/posts");
         return response.data;
       } catch (err) {
-        localStorage.clear();
-        window.location.reload();
         return err;
       }
     },
