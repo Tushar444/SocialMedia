@@ -15,20 +15,16 @@ const app = express();
 
 // middlewares
 app.use((req, res, next) => {
-  const allowedOrigins = [
-    "https://socio-sapiens-web-app.netlify.app",
-    "https://localhost:5173",
-  ];
-  const origin = req.headers.origin;
-  if (allowedOrigins.includes(origin)) {
-    res.setHeader("Access-Control-Allow-Origin", origin);
-  }
   res.header("Access-Control-Allow-Credentials", true);
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
   next();
 });
 app.use(express.json());
+app.use(
+  cors({
+    origin: "https://socio-sapiens-web-app.netlify.app",
+    credentials: true,
+  })
+);
 app.use(cookieParser());
 
 app.use("/api/auth", authRoutes);
