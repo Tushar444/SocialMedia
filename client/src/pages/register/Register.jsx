@@ -30,7 +30,7 @@ const Register = () => {
     try {
       await axios.post(`${backendURL}/api/auth/register`, inputs);
       const { username, password } = inputs;
-      login({ username, password });
+      await login({ username, password });
       navigate("/");
     } catch (err) {
       setErr(err.response.data);
